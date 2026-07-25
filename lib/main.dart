@@ -1,5 +1,5 @@
-import 'package:flowtask/app/bootstrap.dart';
+import 'package:flowtask/core/bootstrap/bootstrap.dart';
 
-void main() {
-  bootstrap();
+Future<void> main() async {
+  await bootstrap();
 }

@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:11181735088:android:b24caa758371f120070f75",
+        "mobilesdk_app_id": "1:11181735088:android:4b7ce00478db14b7070f75",
         "android_client_info": {
-          "package_name": "com.example.flowtask"
+          "package_name": "com.yostinortega.flowtask"
         }
       },
       "oauth_client": [],

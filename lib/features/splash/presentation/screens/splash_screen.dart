@@ -16,7 +16,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   }
 
   Future<void> _initializeApp() async {
-    // TODO:
+    // TODO(Yostin):
     // Review session of Firebase
     // obtain user
     // Load configuration

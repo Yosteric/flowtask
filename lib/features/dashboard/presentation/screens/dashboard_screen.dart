@@ -1,26 +1,55 @@
-import 'package:flowtask/core/router/app_navigator.dart';
-import 'package:flowtask/core/router/app_routes.dart';
-import 'package:flowtask/features/authentication/presentation/providers/auth_controller_provider.dart';
+import 'package:flowtask/core/theme/app_spacing.dart';
+import 'package:flowtask/features/dashboard/presentation/widgets/dashboard_header.dart';
+import 'package:flowtask/features/dashboard/presentation/widgets/dashboard_summary.dart';
+import 'package:flowtask/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DashboardScreen extends ConsumerWidget {
+class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Dashboard')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            await ref.read(authControllerProvider.notifier).signOut();
+      appBar: AppBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const DashboardHeader(userName: 'Yostin'),
 
-            if (context.mounted) {
-              AppNavigator.go(context, AppRoutes.login);
-            }
-          },
-          child: const Text('Sign out'),
+              const SizedBox(height: AppSpacing.xl),
+
+              const DashboardSummary(),
+
+              const SizedBox(height: AppSpacing.xxl),
+
+              const SectionTitle(title: 'Today\'s Tasks'),
+
+              const SizedBox(height: AppSpacing.md),
+
+              const EmptyState(
+                title: 'No tasks yet',
+                message: 'Create your first task to get started.',
+              ),
+
+              const SizedBox(height: AppSpacing.xxl),
+
+              const SectionTitle(title: 'Recent Projects'),
+
+              const SizedBox(height: AppSpacing.md),
+
+              const EmptyState(
+                title: 'No projects yet',
+                message: 'Your recent projects will appear here.',
+              ),
+            ],
+          ),
         ),
       ),
     );

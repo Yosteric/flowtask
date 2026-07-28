@@ -5,4 +5,5 @@ export 'indicators/loading_indicator.dart';
 export 'inputs/app_password_field.dart';
 export 'inputs/app_search_field.dart';
 export 'inputs/app_text_field.dart';
+export 'layout/section_title.dart';
 export 'states/empty_state.dart';

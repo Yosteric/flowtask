@@ -10,49 +10,21 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authControllerProvider);
 
+    final isLoading = authState.status == AuthStatus.loading;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Authentication')),
+      appBar: AppBar(title: const Text('Login')),
       body: Center(
-        child: switch (authState.status) {
-          AuthStatus.loading => const CircularProgressIndicator(),
-
-          AuthStatus.authenticated => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.check_circle, size: 64),
-              const SizedBox(height: 16),
-              Text('Welcome ${authState.user?.name ?? 'Anonymous'}'),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(authControllerProvider.notifier).signOut();
+        child: isLoading
+            ? const CircularProgressIndicator()
+            : ElevatedButton(
+                onPressed: () async {
+                  await ref
+                      .read(authControllerProvider.notifier)
+                      .signInAnonymously();
                 },
-                child: const Text('Sign out'),
+                child: const Text('Continue anonymously'),
               ),
-            ],
-          ),
-
-          AuthStatus.error => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(authState.errorMessage ?? 'Unknown error'),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(authControllerProvider.notifier).signInAnonymously();
-                },
-                child: const Text('Try again'),
-              ),
-            ],
-          ),
-
-          _ => ElevatedButton(
-            onPressed: () {
-              ref.read(authControllerProvider.notifier).signInAnonymously();
-            },
-            child: const Text('Continue anonymously'),
-          ),
-        },
       ),
     );
   }

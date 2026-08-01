@@ -26,7 +26,7 @@ class DashboardSummary extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: AppSpacing.md,
         mainAxisSpacing: AppSpacing.md,
-        childAspectRatio: 1.4,
+        childAspectRatio: 1.27,
       ),
       itemBuilder: (context, index) {
         final item = items[index];
@@ -37,18 +37,24 @@ class DashboardSummary extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(item.icon),
+                Row(
+                  children: [
+                    Icon(item.icon, size: 22),
+                    const SizedBox(width: AppSpacing.sm),
+                    Text(
+                      item.value,
+                      style: Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
 
                 const Spacer(),
 
                 Text(
-                  item.value,
-                  style: Theme.of(context).textTheme.headlineMedium,
+                  item.title,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-
-                const SizedBox(height: AppSpacing.xs),
-
-                Text(item.title, style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
           ),

@@ -13,10 +13,10 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: AppElevation.level1,
+      elevation: AppElevation.level2,
       margin: margin,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.lg),
+        borderRadius: BorderRadius.circular(AppRadius.xl),
       ),
       child: Padding(
         padding: padding ?? const EdgeInsets.all(AppSpacing.md),

@@ -21,9 +21,11 @@ class RouteGuards {
             : AppRoutes.login;
 
       case AuthStatus.authenticated:
-        return state.matchedLocation == AppRoutes.dashboard
-            ? null
-            : AppRoutes.dashboard;
+        if (state.matchedLocation == AppRoutes.login ||
+            state.matchedLocation == AppRoutes.splash) {
+          return AppRoutes.dashboard;
+        }
+        return null;
       case AuthStatus.error:
         // TODO: Handle this case.
         throw UnimplementedError();

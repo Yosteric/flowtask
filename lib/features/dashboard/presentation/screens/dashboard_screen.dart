@@ -3,6 +3,7 @@ import 'package:flowtask/features/dashboard/presentation/widgets/dashboard_heade
 import 'package:flowtask/features/dashboard/presentation/widgets/dashboard_summary.dart';
 import 'package:flowtask/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -12,7 +13,9 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.push('/projects');
+        },
         child: const Icon(Icons.add),
       ),
       body: SafeArea(

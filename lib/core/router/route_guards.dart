@@ -27,7 +27,6 @@ class RouteGuards {
         }
         return null;
       case AuthStatus.error:
-        // TODO: Handle this case.
         throw UnimplementedError();
     }
   }

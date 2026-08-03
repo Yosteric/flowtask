@@ -5,6 +5,7 @@ import 'package:flowtask/features/authentication/routes/auth_routes.dart';
 import 'package:flowtask/features/dashboard/routes/dashboard_routes.dart';
 import 'package:flowtask/features/projects/routes/project_routes.dart';
 import 'package:flowtask/features/splash/routes/splash_routes.dart';
+import 'package:flowtask/features/tasks/routes/tasks_routes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,6 +21,7 @@ GoRouter appRouter(Ref ref) {
       ...authRoutes,
       ...dashboardRoutes,
       ...projectRoutes,
+      TasksRoutes.route(),
     ],
   );
 }

@@ -1,5 +1,6 @@
 import 'package:flowtask/features/projects/domain/entities/project_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ProjectTile extends StatelessWidget {
   const ProjectTile({
@@ -17,7 +18,7 @@ class ProjectTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: onTap,
+        onTap: () => context.push('/tasks/${project.id}'),
         title: Text(project.name),
         subtitle: Text(project.description),
         trailing: PopupMenuButton<String>(

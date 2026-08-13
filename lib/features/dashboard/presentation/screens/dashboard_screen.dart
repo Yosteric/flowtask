@@ -1,15 +1,19 @@
 import 'package:flowtask/core/theme/app_spacing.dart';
+import 'package:flowtask/features/dashboard/presentation/providers/dashboard_providers.dart';
 import 'package:flowtask/features/dashboard/presentation/widgets/dashboard_header.dart';
 import 'package:flowtask/features/dashboard/presentation/widgets/dashboard_summary.dart';
 import 'package:flowtask/shared/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final statisticsAsync = ref.watch(dashboardStatisticsProvider);
+
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
@@ -28,7 +32,11 @@ class DashboardScreen extends StatelessWidget {
 
               const SizedBox(height: AppSpacing.xl),
 
-              const DashboardSummary(),
+              statisticsAsync.when(
+                loading: () => const DashboardSummary.loading(),
+                error: (_, _) => const DashboardSummary.error(),
+                data: (statistics) => DashboardSummary(statistics: statistics),
+              ),
 
               const SizedBox(height: AppSpacing.xxl),
 

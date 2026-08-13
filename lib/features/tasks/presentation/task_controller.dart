@@ -48,6 +48,8 @@ class TaskController extends Notifier<TaskState> {
         description: description,
       );
 
+      ref.invalidate(taskRepositoryProvider);
+
       await loadTasks(projectId: projectId);
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
@@ -71,6 +73,8 @@ class TaskController extends Notifier<TaskState> {
         isCompleted: isCompleted,
       );
 
+      ref.invalidate(taskRepositoryProvider);
+
       await loadTasks(projectId: projectId);
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
@@ -85,6 +89,8 @@ class TaskController extends Notifier<TaskState> {
 
     try {
       await _deleteTask(id: id);
+
+      ref.invalidate(taskRepositoryProvider);
 
       await loadTasks(projectId: projectId);
     } catch (e) {

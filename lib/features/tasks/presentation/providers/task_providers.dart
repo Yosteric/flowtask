@@ -19,25 +19,25 @@ final taskRemoteDataSourceProvider = Provider<TaskRemoteDataSource>(
 /// Repository
 
 final taskRepositoryProvider = Provider<TaskRepository>(
-  (ref) => TaskRepositoryImpl(ref.read(taskRemoteDataSourceProvider)),
+  (ref) => TaskRepositoryImpl(ref.watch(taskRemoteDataSourceProvider)),
 );
 
 /// Use Cases
 
 final getTasksUseCaseProvider = Provider<GetTasksUseCase>(
-  (ref) => GetTasksUseCase(ref.read(taskRepositoryProvider)),
+  (ref) => GetTasksUseCase(ref.watch(taskRepositoryProvider)),
 );
 
 final createTaskUseCaseProvider = Provider<CreateTaskUseCase>(
-  (ref) => CreateTaskUseCase(ref.read(taskRepositoryProvider)),
+  (ref) => CreateTaskUseCase(ref.watch(taskRepositoryProvider)),
 );
 
 final updateTaskUseCaseProvider = Provider<UpdateTaskUseCase>(
-  (ref) => UpdateTaskUseCase(ref.read(taskRepositoryProvider)),
+  (ref) => UpdateTaskUseCase(ref.watch(taskRepositoryProvider)),
 );
 
 final deleteTaskUseCaseProvider = Provider<DeleteTaskUseCase>(
-  (ref) => DeleteTaskUseCase(ref.read(taskRepositoryProvider)),
+  (ref) => DeleteTaskUseCase(ref.watch(taskRepositoryProvider)),
 );
 
 /// Controller

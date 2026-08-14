@@ -6,6 +6,7 @@ class TaskEntity {
     required this.description,
     required this.isCompleted,
     required this.createdAt,
+    this.dueDate,
   });
 
   final String id;
@@ -17,6 +18,7 @@ class TaskEntity {
   final bool isCompleted;
 
   final DateTime createdAt;
+  final DateTime? dueDate;
 
   TaskEntity copyWith({
     String? id,
@@ -25,6 +27,7 @@ class TaskEntity {
     String? description,
     bool? isCompleted,
     DateTime? createdAt,
+    DateTime? dueDate,
   }) {
     return TaskEntity(
       id: id ?? this.id,
@@ -33,6 +36,7 @@ class TaskEntity {
       description: description ?? this.description,
       isCompleted: isCompleted ?? this.isCompleted,
       createdAt: createdAt ?? this.createdAt,
+      dueDate: dueDate ?? this.dueDate,
     );
   }
 }

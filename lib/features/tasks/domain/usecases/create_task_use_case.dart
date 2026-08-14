@@ -10,11 +10,13 @@ class CreateTaskUseCase {
     required String projectId,
     required String title,
     required String description,
+    DateTime? dueDate,
   }) {
     return _repository.createTask(
       projectId: projectId,
       title: title,
       description: description,
+      dueDate: dueDate,
     );
   }
 }

@@ -15,15 +15,22 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
+  Future<List<TaskEntity>> getAllTasks() {
+    return _remoteDataSource.getAllTasks();
+  }
+
+  @override
   Future<TaskEntity> createTask({
     required String projectId,
     required String title,
     required String description,
+    DateTime? dueDate,
   }) async {
     final task = await _remoteDataSource.createTask(
       projectId: projectId,
       title: title,
       description: description,
+      dueDate: dueDate,
     );
 
     return task.toEntity();
@@ -35,12 +42,14 @@ class TaskRepositoryImpl implements TaskRepository {
     required String title,
     required String description,
     required bool isCompleted,
+    DateTime? dueDate,
   }) async {
     final task = await _remoteDataSource.updateTask(
       id: id,
       title: title,
       description: description,
       isCompleted: isCompleted,
+      dueDate: dueDate,
     );
 
     return task.toEntity();

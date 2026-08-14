@@ -2,6 +2,7 @@ import 'package:flowtask/core/router/app_routes.dart';
 import 'package:flowtask/core/router/route_guards.dart';
 import 'package:flowtask/core/router/router_refresh_listenable.dart';
 import 'package:flowtask/features/authentication/routes/auth_routes.dart';
+import 'package:flowtask/features/calendar/routes/calendar_routes.dart';
 import 'package:flowtask/features/dashboard/routes/dashboard_routes.dart';
 import 'package:flowtask/features/projects/routes/project_routes.dart';
 import 'package:flowtask/features/splash/routes/splash_routes.dart';
@@ -22,6 +23,7 @@ GoRouter appRouter(Ref ref) {
       ...dashboardRoutes,
       ...projectRoutes,
       TasksRoutes.route(),
+      ...calendarRoutes,
     ],
   );
 }

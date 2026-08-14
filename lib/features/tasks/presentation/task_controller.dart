@@ -38,6 +38,7 @@ class TaskController extends Notifier<TaskState> {
     required String projectId,
     required String title,
     required String description,
+    DateTime? dueDate,
   }) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
@@ -46,6 +47,7 @@ class TaskController extends Notifier<TaskState> {
         projectId: projectId,
         title: title,
         description: description,
+        dueDate: dueDate,
       );
 
       ref.invalidate(taskRepositoryProvider);
@@ -62,6 +64,7 @@ class TaskController extends Notifier<TaskState> {
     required String title,
     required String description,
     required bool isCompleted,
+    DateTime? dueDate,
   }) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
@@ -71,6 +74,7 @@ class TaskController extends Notifier<TaskState> {
         title: title,
         description: description,
         isCompleted: isCompleted,
+        dueDate: dueDate,
       );
 
       ref.invalidate(taskRepositoryProvider);

@@ -7,7 +7,12 @@ class TaskDialog extends StatefulWidget {
 
   final TaskEntity? task;
 
-  final Future<void> Function(String title, String description) onSave;
+  final Future<void> Function(
+    String title,
+    String description,
+    DateTime? dueDate,
+  )
+  onSave;
 
   @override
   State<TaskDialog> createState() => _TaskDialogState();
@@ -19,6 +24,7 @@ class _TaskDialogState extends State<TaskDialog> {
 
   final _formKey = GlobalKey<FormState>();
 
+  DateTime? _dueDate;
   bool _isSaving = false;
 
   bool get _isEditing => widget.task != null;
@@ -32,13 +38,33 @@ class _TaskDialogState extends State<TaskDialog> {
     _descriptionController = TextEditingController(
       text: widget.task?.description ?? '',
     );
+
+    _dueDate = widget.task?.dueDate;
   }
 
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
+  Future<void> _selectDueDate() async {
+    final now = DateTime.now();
+
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: _dueDate ?? now,
+      firstDate: DateTime(now.year - 1),
+      lastDate: DateTime(now.year + 10),
+    );
+
+    if (selectedDate == null) {
+      return;
+    }
+
+    setState(() {
+      _dueDate = selectedDate;
+    });
+  }
+
+  void _clearDueDate() {
+    setState(() {
+      _dueDate = null;
+    });
   }
 
   Future<void> _save() async {
@@ -50,18 +76,32 @@ class _TaskDialogState extends State<TaskDialog> {
       _isSaving = true;
     });
 
-    await widget.onSave(
-      _titleController.text.trim(),
-      _descriptionController.text.trim(),
-    );
+    try {
+      await widget.onSave(
+        _titleController.text.trim(),
+        _descriptionController.text.trim(),
+        _dueDate,
+      );
 
-    if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
 
-    Navigator.of(context).pop();
+      Navigator.of(context).pop();
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+        });
+      }
+    }
+  }
 
-    setState(() {
-      _isSaving = false;
-    });
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,6 +120,30 @@ class _TaskDialogState extends State<TaskDialog> {
               label: 'Description',
               maxLines: 3,
             ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: _selectDueDate,
+                    icon: const Icon(Icons.calendar_today),
+                    label: Text(
+                      _dueDate == null
+                          ? 'Set due date'
+                          : _formatDate(_dueDate!),
+                    ),
+                  ),
+                ),
+                if (_dueDate != null) ...[
+                  const SizedBox(width: 8),
+                  IconButton(
+                    onPressed: _clearDueDate,
+                    tooltip: 'Remove due date',
+                    icon: const Icon(Icons.clear),
+                  ),
+                ],
+              ],
+            ),
           ],
         ),
       ),
@@ -95,5 +159,9 @@ class _TaskDialogState extends State<TaskDialog> {
         ),
       ],
     );
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.month}/${date.day}/${date.year}';
   }
 }

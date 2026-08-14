@@ -10,10 +10,16 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
   }
 
   @override
+  Future<List<TaskModel>> getAllTasks() async {
+    return List<TaskModel>.from(_tasks);
+  }
+
+  @override
   Future<TaskModel> createTask({
     required String projectId,
     required String title,
     required String description,
+    DateTime? dueDate,
   }) async {
     final task = TaskModel(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -22,6 +28,7 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
       description: description,
       isCompleted: false,
       createdAt: DateTime.now(),
+      dueDate: dueDate,
     );
 
     _tasks.add(task);
@@ -35,6 +42,7 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
     required String title,
     required String description,
     required bool isCompleted,
+    DateTime? dueDate,
   }) async {
     final index = _tasks.indexWhere((task) => task.id == id);
 
@@ -45,6 +53,7 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
       description: description,
       isCompleted: isCompleted,
       createdAt: _tasks[index].createdAt,
+      dueDate: dueDate,
     );
 
     _tasks[index] = updated;

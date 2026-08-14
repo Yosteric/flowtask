@@ -4,6 +4,7 @@ import 'package:flowtask/features/tasks/data/repositories/task_repository_impl.d
 import 'package:flowtask/features/tasks/domain/repositories/task_repository.dart';
 import 'package:flowtask/features/tasks/domain/usecases/create_task_use_case.dart';
 import 'package:flowtask/features/tasks/domain/usecases/delete_task_use_case.dart';
+import 'package:flowtask/features/tasks/domain/usecases/get_all_tasks_use_case.dart';
 import 'package:flowtask/features/tasks/domain/usecases/get_tasks_use_case.dart';
 import 'package:flowtask/features/tasks/domain/usecases/update_task_use_case.dart';
 import 'package:flowtask/features/tasks/presentation/states/task_state.dart';
@@ -26,6 +27,10 @@ final taskRepositoryProvider = Provider<TaskRepository>(
 
 final getTasksUseCaseProvider = Provider<GetTasksUseCase>(
   (ref) => GetTasksUseCase(ref.watch(taskRepositoryProvider)),
+);
+
+final getAllTasksUseCaseProvider = Provider<GetAllTasksUseCase>(
+  (ref) => GetAllTasksUseCase(ref.watch(taskRepositoryProvider)),
 );
 
 final createTaskUseCaseProvider = Provider<CreateTaskUseCase>(

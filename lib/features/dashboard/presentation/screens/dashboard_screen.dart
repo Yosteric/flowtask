@@ -1,3 +1,4 @@
+import 'package:flowtask/core/router/app_routes.dart';
 import 'package:flowtask/core/theme/app_spacing.dart';
 import 'package:flowtask/features/dashboard/presentation/providers/dashboard_providers.dart';
 import 'package:flowtask/features/dashboard/presentation/widgets/dashboard_header.dart';
@@ -36,6 +37,21 @@ class DashboardScreen extends ConsumerWidget {
                 loading: () => const DashboardSummary.loading(),
                 error: (_, _) => const DashboardSummary.error(),
                 data: (statistics) => DashboardSummary(statistics: statistics),
+              ),
+
+              const SizedBox(height: AppSpacing.xl),
+
+              AppCard(
+                padding: EdgeInsets.zero,
+                child: ListTile(
+                  leading: const Icon(Icons.calendar_month),
+                  title: const Text('Calendar'),
+                  subtitle: const Text('View your tasks by date'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    context.push(AppRoutes.calendar);
+                  },
+                ),
               ),
 
               const SizedBox(height: AppSpacing.xxl),

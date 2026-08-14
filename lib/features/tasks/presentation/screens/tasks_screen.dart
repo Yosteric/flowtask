@@ -81,6 +81,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                             title: task.title,
                             description: task.description,
                             isCompleted: !task.isCompleted,
+                            dueDate: task.dueDate,
                           );
                     },
                     onEdit: (task) {
@@ -105,13 +106,14 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
     await showDialog(
       context: context,
       builder: (_) => TaskDialog(
-        onSave: (title, description) {
+        onSave: (title, description, dueDate) {
           return ref
               .read(taskControllerProvider.notifier)
               .createTask(
                 projectId: widget.projectId,
                 title: title,
                 description: description,
+                dueDate: dueDate,
               );
         },
       ),
@@ -123,7 +125,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
       context: context,
       builder: (_) => TaskDialog(
         task: task,
-        onSave: (title, description) {
+        onSave: (title, description, dueDate) {
           return ref
               .read(taskControllerProvider.notifier)
               .updateTask(
@@ -132,6 +134,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                 title: title,
                 description: description,
                 isCompleted: task.isCompleted,
+                dueDate: dueDate,
               );
         },
       ),

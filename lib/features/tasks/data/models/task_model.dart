@@ -8,6 +8,7 @@ class TaskModel extends TaskEntity {
     required super.description,
     required super.isCompleted,
     required super.createdAt,
+    super.dueDate,
   });
 
   factory TaskModel.fromEntity(TaskEntity entity) {
@@ -18,6 +19,7 @@ class TaskModel extends TaskEntity {
       description: entity.description,
       isCompleted: entity.isCompleted,
       createdAt: entity.createdAt,
+      dueDate: entity.dueDate,
     );
   }
 
@@ -29,6 +31,7 @@ class TaskModel extends TaskEntity {
       description: description,
       isCompleted: isCompleted,
       createdAt: createdAt,
+      dueDate: dueDate,
     );
   }
 }
